@@ -176,7 +176,7 @@ export function RecommendationsContent() {
           ))}
         </div>
       ) : properties.length === 0 ? (
-        <Card className="p-12 text-center">
+        <Card className="p-6 text-center sm:p-12">
           <Sparkles className="mx-auto mb-4 size-12 text-muted-foreground/50" />
           <p className="text-muted-foreground">
             Nenhuma recomendação no momento. Complete seu perfil para receber

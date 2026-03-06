@@ -342,24 +342,24 @@ export default function PerfilPage() {
       <div className="flex flex-col gap-6">
         {/* Card de perfil com avatar */}
         <Card className="overflow-hidden">
-          <div className="bg-muted/50 px-6 py-8">
+          <div className="bg-muted/50 px-4 py-6 sm:px-6 sm:py-8">
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-start">
               <div className="shrink-0">
                 {profile.avatar ? (
                   <img
                     src={getAvatarSrc(profile.avatar)}
                     alt="Avatar"
-                    className="size-20 rounded-full object-cover ring-4 ring-background shadow-md sm:size-24"
+                    className="size-16 rounded-full object-cover ring-4 ring-background shadow-md sm:size-24"
                   />
                 ) : (
-                  <div className="flex size-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-semibold text-primary ring-4 ring-background shadow-md sm:size-24">
+                  <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-xl font-semibold text-primary ring-4 ring-background shadow-md sm:size-24 sm:text-2xl">
                     {profile.name?.charAt(0)?.toUpperCase() ?? "?"}
                   </div>
                 )}
               </div>
-              <div className="text-center sm:text-left">
-                <h2 className="text-xl font-semibold">{profile.name}</h2>
-                <p className="text-sm text-muted-foreground">{profile.email}</p>
+              <div className="w-full text-center sm:text-left">
+                <h2 className="text-lg font-semibold sm:text-xl">{profile.name}</h2>
+                <p className="truncate text-xs text-muted-foreground sm:text-sm">{profile.email}</p>
                 {profile.address &&
                   (profile.address.street ||
                     profile.address.city ||
@@ -438,7 +438,7 @@ export default function PerfilPage() {
               Seus dados pessoais e financeiros
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-6 px-4 sm:px-6">
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
@@ -819,8 +819,8 @@ export default function PerfilPage() {
             )}
           </CardContent>
           {editing && (
-            <CardFooter className="flex gap-2 border-t pt-6">
-              <Button onClick={handleSave} disabled={saving}>
+            <CardFooter className="flex flex-col gap-2 border-t px-4 pt-6 sm:flex-row sm:px-6">
+              <Button onClick={handleSave} disabled={saving} className="w-full sm:w-auto">
                 {saving ? "Salvando..." : "Salvar"}
               </Button>
               <Button
@@ -839,6 +839,7 @@ export default function PerfilPage() {
                   });
                 }}
                 disabled={saving}
+                className="w-full sm:w-auto"
               >
                 Cancelar
               </Button>

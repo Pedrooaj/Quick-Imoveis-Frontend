@@ -139,7 +139,7 @@ export function CorretoresContent() {
           ))}
         </div>
       ) : corretores.length === 0 ? (
-        <Card className="py-16 text-center">
+        <Card className="py-8 text-center sm:py-16">
           <p className="text-lg text-muted-foreground">
             Nenhum corretor encontrado.
           </p>

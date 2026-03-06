@@ -45,13 +45,15 @@ export function UserMenu({ name, role }: UserMenuProps) {
 
   return (
     <>
-      <div className="flex items-center gap-3">
-        <RoleBadge role={role} />
+      <div className="flex items-center gap-2 sm:gap-3">
+        <div className="hidden sm:block">
+          <RoleBadge role={role} />
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2 font-normal">
-              {name}
-              <ChevronDown className="size-4 text-muted-foreground" />
+            <Button variant="ghost" className="flex items-center gap-1.5 font-normal max-w-[160px] sm:max-w-none sm:gap-2">
+              <span className="truncate">{name}</span>
+              <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">

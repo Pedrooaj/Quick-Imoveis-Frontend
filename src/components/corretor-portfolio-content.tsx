@@ -106,32 +106,32 @@ export function CorretorPortfolioContent({ ownerId }: CorretorPortfolioContentPr
             </h1>
             <div className="space-y-1 text-xs text-muted-foreground sm:text-sm">
               {mainOwner?.email && (
-                <p className="flex items-center gap-1.5">
-                  <Mail className="size-3.5" />
+                <p className="flex min-w-0 items-center gap-1.5">
+                  <Mail className="size-3.5 shrink-0" />
                   <a
                     href={`mailto:${mainOwner.email}`}
-                    className="hover:underline"
+                    className="truncate hover:underline"
                   >
                     {mainOwner.email}
                   </a>
                 </p>
               )}
               {mainOwner?.phone && (
-                <p className="flex items-center gap-1.5">
-                  <Phone className="size-3.5" />
-                  <a href={`tel:${mainOwner.phone}`} className="hover:underline">
+                <p className="flex min-w-0 items-center gap-1.5">
+                  <Phone className="size-3.5 shrink-0" />
+                  <a href={`tel:${mainOwner.phone}`} className="truncate hover:underline">
                     {mainOwner.phone}
                   </a>
                 </p>
               )}
               {mainOwner?.whatsapp && (
-                <p className="flex items-center gap-1.5">
-                  <MessageCircle className="size-3.5" />
+                <p className="flex min-w-0 items-center gap-1.5">
+                  <MessageCircle className="size-3.5 shrink-0" />
                   <a
                     href={`https://wa.me/${mainOwner.whatsapp.replace(/\D/g, "")}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:underline"
+                    className="truncate hover:underline"
                   >
                     WhatsApp: {mainOwner.whatsapp}
                   </a>
@@ -171,7 +171,7 @@ export function CorretorPortfolioContent({ ownerId }: CorretorPortfolioContentPr
           ))}
         </div>
       ) : properties.length === 0 ? (
-        <Card className="p-12 text-center">
+        <Card className="p-6 text-center sm:p-12">
           <p className="text-muted-foreground">
             Nenhum imóvel encontrado para este corretor.
           </p>

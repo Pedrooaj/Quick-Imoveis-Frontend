@@ -163,7 +163,7 @@ export function PropertyCard(props: PropertyCardProps) {
       </div>
 
       {/* ── Row 2 · Título + Preço ────────────────────────────── */}
-      <div className="px-5 pt-4">
+      <div className="px-3 pt-4 sm:px-5">
         <h3 className="line-clamp-2 text-base font-semibold leading-snug">
           {p.title}
         </h3>
@@ -175,7 +175,7 @@ export function PropertyCard(props: PropertyCardProps) {
       </div>
 
       {/* ── Row 3 · Metadados (grid 2×2 fixo) ────────────────── */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 px-5 py-3 text-sm text-muted-foreground">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 px-3 py-3 text-sm text-muted-foreground sm:gap-x-4 sm:px-5">
         <span className="inline-flex items-center gap-1.5 truncate">
           <Home className="size-4 shrink-0" />
           {TYPE_LABELS[p.property_type ?? ""] ?? p.property_type ?? "—"}
@@ -197,7 +197,7 @@ export function PropertyCard(props: PropertyCardProps) {
       </div>
 
       {/* ── Row 4 · Ações ─────────────────────────────────────── */}
-      <div className="flex flex-wrap items-end gap-2 border-t px-5 py-4">
+      <div className="flex flex-wrap items-end gap-2 border-t px-3 py-3 sm:px-5 sm:py-4">
         {p.id && (
           <Button asChild variant="outline" size="sm">
             <Link href={`/imoveis/${p.id}`}>Ver detalhes</Link>
@@ -243,17 +243,17 @@ export function PropertyCardSkeleton() {
   return (
     <Card className="row-span-4 grid grid-rows-subgrid gap-0 overflow-hidden p-0">
       <Skeleton className="aspect-[4/3] w-full" />
-      <div className="space-y-2 px-5 pt-4">
+      <div className="space-y-2 px-3 pt-4 sm:px-5">
         <Skeleton className="h-5 w-3/4" />
         <Skeleton className="h-6 w-1/3" />
       </div>
-      <div className="grid grid-cols-2 gap-2 px-5 py-3">
+      <div className="grid grid-cols-2 gap-2 px-3 py-3 sm:px-5">
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-full" />
       </div>
-      <div className="border-t px-5 py-4">
+      <div className="border-t px-3 py-3 sm:px-5 sm:py-4">
         <Skeleton className="h-8 w-24" />
       </div>
     </Card>

@@ -291,7 +291,7 @@ export function ImoveisListContent() {
       </div>
 
       {/* ── Filtros ─────────────────────────────────────────────── */}
-      <Card className="p-5">
+      <Card className="p-3 sm:p-5">
         <form onSubmit={handleSearch} className="space-y-4">
           <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
             <SlidersHorizontal className="size-4" />
@@ -410,7 +410,7 @@ export function ImoveisListContent() {
           ))}
         </div>
       ) : properties.length === 0 ? (
-        <Card className="py-16 text-center">
+        <Card className="py-8 text-center sm:py-16">
           <p className="text-lg text-muted-foreground">
             Nenhum imóvel disponível no momento.
           </p>
