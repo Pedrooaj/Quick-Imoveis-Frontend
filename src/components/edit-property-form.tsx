@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { apiFetch, fetchPublic } from "@/lib/api";
+import { apiFetch } from "@/lib/api";
+import { useBrazilianStates } from "@/lib/use-brazilian-states";
 import { toast } from "sonner";
 import type { Property, PropertyCreate } from "@/types/property";
 import { Button } from "@/components/ui/button";
@@ -68,19 +69,7 @@ export function EditPropertyForm({
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [brazilianStates, setBrazilianStates] = useState<string[]>([]);
-
-  useEffect(() => {
-    let isMounted = true;
-    fetchPublic("/common/brazilian-states")
-      .then((data: unknown) => {
-        if (!isMounted || !data || typeof data !== "object") return;
-        const list = (data as { states?: string[] }).states;
-        if (Array.isArray(list)) setBrazilianStates(list);
-      })
-      .catch(() => {});
-    return () => { isMounted = false; };
-  }, []);
+  const brazilianStates = useBrazilianStates();
 
   const isLastFormStep = currentStep === 2;
   const isImagesStep = currentStep === 3;

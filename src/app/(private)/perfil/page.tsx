@@ -32,6 +32,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { User, Mail, Banknote, Wallet, MapPin, Phone, MessageCircle, BadgeCheck, Trash2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useBrazilianStates } from "@/lib/use-brazilian-states";
 
 function formatDate(dateStr: string | null) {
   if (!dateStr) return "—";
@@ -64,6 +72,7 @@ export default function PerfilPage() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const searchParams = useSearchParams();
+  const brazilianStates = useBrazilianStates();
 
   useEffect(() => {
     apiFetch("/auth/profile")
@@ -627,17 +636,26 @@ export default function PerfilPage() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="addr-state">Estado</Label>
-                      <Input
-                        id="addr-state"
+                      <Select
                         value={formData.address?.state ?? ""}
-                        onChange={(e) =>
+                        onValueChange={(value) =>
                           setFormData((p) => ({
                             ...p,
-                            address: { ...(p.address ?? {}), state: e.target.value },
+                            address: { ...(p.address ?? {}), state: value },
                           }))
                         }
-                        placeholder="SP"
-                      />
+                      >
+                        <SelectTrigger id="addr-state">
+                          <SelectValue placeholder="Selecione o estado" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {brazilianStates.map((state) => (
+                            <SelectItem key={state} value={state}>
+                              {state}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="addr-postal_code">CEP</Label>
