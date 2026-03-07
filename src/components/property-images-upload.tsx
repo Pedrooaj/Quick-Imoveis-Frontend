@@ -17,7 +17,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ChevronUp, ChevronDown } from "lucide-react";
+import { ChevronUp, ChevronDown, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const ACCEPTED_TYPES = "image/jpeg,image/png,image/webp,image/gif";
 const MAX_SIZE_MB = 5;
@@ -34,6 +45,7 @@ export function PropertyImagesUpload({ propertyId }: { propertyId: string }) {
   const [success, setSuccess] = useState(false);
   const [images, setImages] = useState<PropertyImage[]>([]);
   const [reorderLoading, setReorderLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
 
   const fetchImages = useCallback(async () => {
     try {
@@ -77,6 +89,23 @@ export function PropertyImagesUpload({ propertyId }: { propertyId: string }) {
       }
     } finally {
       setReorderLoading(false);
+    }
+  }
+
+  async function handleDeleteImage(imageId: string) {
+    setDeleteLoading(imageId);
+    try {
+      await apiFetch(`/property/${propertyId}/images/${imageId}`, {
+        method: "DELETE",
+      });
+      setImages((prev) => prev.filter((img) => img.id !== imageId));
+      router.refresh();
+      toast.success("Imagem removida!");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Erro ao remover imagem.";
+      toast.error(msg);
+    } finally {
+      setDeleteLoading(null);
     }
   }
 
@@ -189,6 +218,39 @@ export function PropertyImagesUpload({ propertyId }: { propertyId: string }) {
                     <div className="min-w-0 flex-1">
                       <span className="text-sm font-medium">Imagem {index + 1}</span>
                     </div>
+                    {img.id && (
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="size-8 shrink-0 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                            disabled={deleteLoading === img.id}
+                            aria-label="Remover imagem"
+                          >
+                            <Trash2 className="size-4" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Remover imagem</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Tem certeza que deseja remover esta imagem? Essa ação não pode ser desfeita.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleDeleteImage(img.id!)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              {deleteLoading === img.id ? "Removendo..." : "Remover"}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    )}
                   </div>
                 );
               })}
